@@ -150,21 +150,25 @@ window.addEventListener('DOMContentLoaded', (e) => {
                 cityImageDiv.style.backgroundImage = `url('icons/defaultImage.jpeg')`;
                 cityImageText.textContent = detectedLocationBtn.textContent;
             })
-        })
-        //else use default location
-    }else{
+    //Use default location if geolocation is blocked
+        }, (error) => {
+
         getWeather([-95.358421,29.749907]);
         getForecast([-95.358421,29.749907]);
         detectedLocationBtn.textContent = 'Houston(default location)';
         cityImageText.textContent = detectedLocationBtn.textContent;
+        console.log(error);
         detectedLocationBtn.addEventListener('click', (e) => {
             e.preventDefault();
             getWeather([-95.358421,29.749907]);
             getForecast([-95.358421,29.749907]);
             cityImageDiv.style.backgroundImage = `url('icons/defaultImage.jpeg')`;
             cityImageText.textContent = detectedLocationBtn.textContent;
+
+        })
         })
     }
+
 
     
 });

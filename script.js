@@ -153,16 +153,14 @@ window.addEventListener('DOMContentLoaded', (e) => {
         })
         //else use default location
     }else{
-        lngLatSearch[0] = -95.358421;
-        lngLatSearch[1] = 29.749907;
-        getWeather(lngLatSearch);
-        getForecast(lngLatSearch);
+        getWeather([-95.358421,29.749907]);
+        getForecast([-95.358421,29.749907]);
         detectedLocationBtn.textContent = 'Houston(default location)';
         cityImageText.textContent = detectedLocationBtn.textContent;
         detectedLocationBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            getWeather([loc.coords.longitude,loc.coords.latitude]);
-            getForecast([loc.coords.longitude,loc.coords.latitude]);
+            getWeather([-95.358421,29.749907]);
+            getForecast([-95.358421,29.749907]);
             cityImageDiv.style.backgroundImage = `url('icons/defaultImage.jpeg')`;
             cityImageText.textContent = detectedLocationBtn.textContent;
         })

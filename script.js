@@ -68,11 +68,9 @@ async function getWeather(longLat) {
 
         if(navigator.geolocation && detected === false){
             detectedLocationBtn.textContent = weatherData.name + ' (detected)';
+            cityImageText.textContent = detectedLocationBtn.textContent;
             detected =  true;
-        } else if(!navigator.geolocation && detected === false){
-            detectedLocationBtn.textContent = 'Houston, TX (default)';
-            detected = true;
-        }
+        } 
 
         
     } catch (error) {
@@ -142,7 +140,8 @@ window.addEventListener('DOMContentLoaded', (e) => {
         navigator.geolocation.getCurrentPosition((loc) => {
             getWeather([loc.coords.longitude,loc.coords.latitude]);
             getForecast([loc.coords.longitude,loc.coords.latitude]);
-            cityImageText.textContent = detectedLocationBtn.textContent;
+            
+            
             document.getElementById('preloader').style.display ='none';
             detectedLocationBtn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -156,8 +155,8 @@ window.addEventListener('DOMContentLoaded', (e) => {
         document.getElementById('preloader').style.display ='none';
         getWeather([-95.358421,29.749907]);
         getForecast([-95.358421,29.749907]);
-        detectedLocationBtn.textContent = 'Houston(default location)';
-        cityImageText.textContent = detectedLocationBtn.textContent;
+        detectedLocationBtn.textContent = 'Houston (default)';
+        cityImageText.textContent = 'Houston, TX (default)';
         console.log(error);
         detectedLocationBtn.addEventListener('click', (e) => {
             e.preventDefault();

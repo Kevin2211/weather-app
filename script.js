@@ -20,6 +20,11 @@ const houstonLonLat = [-95.358421, 29.749907];
 const apiKey = 'ee759a30a9b8bfdc78fd32c59d9d8abc';
 const lngLatSearch = [];
 
+const newsHeadline = document.getElementById("newsHeadline");
+const newsDescription = document.getElementById("news-description");
+const newsImage = document.getElementById("newsImage")
+const publishedAt = document.getElementById("updatedAt")
+
 
 
 
@@ -135,4 +140,25 @@ function initMap(){
 }
 initMap();
 
+async function getNews() {
+    const location = locationInput.value 
+    const url = `https://newsapi.org/v2/everything?q=Houston&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`
+
+    const promise = await fetch (`https://newsapi.org/v2/everything?q=Houston&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`)
+    const data = await promise.json()
+    console.log(data)
+
+    newsHeadline.innerHTML = data.articles[0].title;
+    newsDescription.innerHTML = data.articles[0].description;
+    newsImage.src = data.articles[0].urlToImage;
+    publishedAt.innerHTML = data.articles[0].publishedAt;
+
+    
+
+
+   
+
+}
+
+getNews()
 

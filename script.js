@@ -143,6 +143,7 @@ window.addEventListener('DOMContentLoaded', (e) => {
             getWeather([loc.coords.longitude,loc.coords.latitude]);
             getForecast([loc.coords.longitude,loc.coords.latitude]);
             cityImageText.textContent = detectedLocationBtn.textContent;
+            document.getElementById('preloader').style.display ='none';
             detectedLocationBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 getWeather([loc.coords.longitude,loc.coords.latitude]);
@@ -152,7 +153,7 @@ window.addEventListener('DOMContentLoaded', (e) => {
             })
     //Use default location if geolocation is blocked
         }, (error) => {
-
+        document.getElementById('preloader').style.display ='none';
         getWeather([-95.358421,29.749907]);
         getForecast([-95.358421,29.749907]);
         detectedLocationBtn.textContent = 'Houston(default location)';

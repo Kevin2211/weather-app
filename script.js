@@ -124,79 +124,54 @@ function initMap(){
         lngLatSearch[0] = location.geometry.location.lng();
         lngLatSearch[1] = location.geometry.location.lat();
         console.log(location)
+        
+        // location = photoRequest;
+        
+        searchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            locationImgText.textContent = location.name;
+            getWeather(lngLatSearch);
+            getForecast(lngLatSearch);
+            // console.dir(locationInput)
+            // getImg(locationInput.value);
+        })
+        
+    })
+    
+}   
+initMap()
+        
+const photoRequest = () => {
+    var request = {
+    place_id: photos[0].place_id
+    }
 
-        var request = {
-            place_id: "ChIJAYWNSLS4QIYROwVl894CDco"
+    service = new google.maps.places.PlacesService(location);
+    service.getDetails(request, callback);
 
-        };
-
-        service = new google.maps.places.PlacesService(map);
-        service.getDetails(request, callback);
-
-        function callback(place, status) {
+    function callback(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-            getPhoto(place);
+        getPhoto(place);
         }
         }
 
         function getPhoto(place) {
             var photos = place.photos;
-          
+      
             if (!photos) {
-              return;
+            return;
             }
             var placePhoto = document.createElement("img")
-           
-            for (var i=0;i<photos.length;i++){
-              img.src = photos[i].getUrl({'maxWidth': 100, 'maxHeight': 100});
-                
-            }
-          }
-                
-        })
-
-    searchBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        locationImgText.textContent = location.name;
-        getWeather(lngLatSearch);
-        getForecast(lngLatSearch);
-        // console.dir(locationInput)
-        // getImg(locationInput.value);
-    })
-
-}
-initMap()
-
-
-
-// async function getImg(location) {
-    // var request = {
-    //     query: `${location}`,
-    //     fields: ['name', 'geometry', 'photos']
-    // };
+       
+            placePhoto.src = photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100});
+            const placePhotoDiv = document.getElementById('placePhotoDiv');
+            placePhotoDiv.appendChild(placePhoto);
+        
+            
+    }
     
-    // service = new google.maps.places.PlacesService(location);
-    
-    // var placePhoto = '';
+}           
 
-    // await service.findPlaceFromQuery(request, function(results, status) {
-    //     if (status === google.maps.places.PlacesServiceStatus.OK) {
-    //         placePhoto = results.photos.photo_reference
-    //         console.log(placePhoto)
-    //     }
-    // })
-    
-    // let response = await fetch(`https://maps.googleapis.com/maps/api/place/photo
-    // ?maxwidth=200
-    // &photo_reference=${placePhoto}&key=${apiKey}`)
+// place_id: photos[0].place_id
 
-//     let response = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch?output=json`)
-
-//     console.log(response)
-//     let photoData = await response.json();
-//     console.log(photoData)
-//     const placeImg = document.getElementById('placeImg'); 
-//     // placeImg.src = 
-    
-// }
-
+//fields: ['geometry','name','address_components']

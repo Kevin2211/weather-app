@@ -20,8 +20,8 @@
     border-radius: 20px;
     background: linear-gradient(.717turn,#fff 1.16%,hsla(0,0%,100%,0) 192.15%)!important;
 }
-.city-image{
-    background-image: url('icons/houston.jpeg');
+#city-image-div{
+    background-image: url('icons/defaultImage.jpeg');
     background-position: center;
     border-radius: 20px;
     background-size: cover;
@@ -29,10 +29,7 @@
 }
 /* ===== Scrollbar CSS ===== */
   /* Firefox */
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: #8f54a0 #ffffff;
-  }
+
 
   /* Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
@@ -49,3 +46,8 @@
     border-radius: 30px;
     border: 3px solid #ffffff;
   }
+  #map{         
+    height: 400px;         
+    width: 100%;         
+    margin: 0.6em;       
+}

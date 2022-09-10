@@ -129,6 +129,7 @@ function initMap(){
         console.log(location)
         placeImageUrl = location.photos[0].getUrl()
         
+        
         searchBtn.addEventListener('click', (e) => {
             e.preventDefault();
             locationImgText.textContent = location.name;

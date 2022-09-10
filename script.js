@@ -96,8 +96,9 @@ async function getForecast(longLat){
     const forecastData = forecastObject.list;
 
     const forecastHTML = [];
+    console.log(forecastData);
     //loop through the array of objects and make a new div for each object we get from fetched data
-    for (let i = 0; i < forecastData.length; i = i+1) {
+    for (let i = 0; i < forecastData.length; i++) {
         const eachElement = `<div class="d-flex flex-column me-5">
         <img class="" src="http://openweathermap.org/img/wn/${forecastData[i].weather[0].icon}@2x.png" alt="" width="40" height="40">
         <p style="color: #000d63;">${forecastData[i].main.temp.toString().substr(0,2)}°</p>

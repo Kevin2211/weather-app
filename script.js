@@ -14,6 +14,7 @@ const currentTemp = document.getElementById('current-temp');
 const currentWind = document.getElementById('current-wind');
 const currentHumidity = document.getElementById('humidity');
 const currentDate = document.getElementById('current-date');
+const currentVisibility = document.getElementById('current-visibility');
 
 //Sun card
 const sunrise = document.getElementById('sunrise');
@@ -59,6 +60,7 @@ async function getWeather(longLat) {
         currentHumidity.textContent = weatherData.main.humidity + "%";
         currentWeatherDes.textContent = weatherData.weather[0].description.toUpperCase();
         currentWeatherImg.src = `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
+        currentVisibility.textContent = `${weatherData.visibility}` + "MSL";
 
         //get unix time format to dateTime format for sunset and sunrise
         const sunriseDateTime = new Date(weatherData.sys.sunrise*1000);

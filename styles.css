@@ -20,8 +20,10 @@
     border-radius: 20px;
     background: linear-gradient(.717turn,#fff 1.16%,hsla(0,0%,100%,0) 192.15%)!important;
 }
+
 #city-image-div{
     background-image: url('icons/defaultImage.jpeg');
+
     background-position: center;
     border-radius: 20px;
     background-size: cover;

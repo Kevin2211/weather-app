@@ -1,4 +1,7 @@
+
 // Navbar Control
+=======
+
 const locationInput = document.getElementById('location-input');
 const searchBtn = document.getElementById('search-btn');
 const detectedLocationBtn = document.getElementById('detected-location');
@@ -17,11 +20,13 @@ const sunrise = document.getElementById('sunrise');
 const sunset = document.getElementById('sunset');
 //forecast card
 const forecastDiv = document.getElementById('forecastDiv');
+
 //Sun card
 const sunMeterDiv = document.getElementById('sun-meter');
 //City image card
 const cityImageDiv = document.getElementById('city-image-div');
 const cityImageText = document.getElementById('location-image-text');
+
 
 //global variables
 const week = ['Sun','Mon','Tue','Wed', 'Thu','Fri','Sat'];
@@ -29,9 +34,11 @@ const monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", 
 const houstonLonLat = [-95.358421, 29.749907];
 const apiKey = 'ee759a30a9b8bfdc78fd32c59d9d8abc';
 const lngLatSearch = [];
+
 let detected = false;
 const locationArr = [];
 var urlLink = '';
+
 
 
 
@@ -118,6 +125,7 @@ function kelvinToFahr(temp){
 }
 //get Hour:Min formatt
 function formattedTime(dateTime){
+
     var hours = "0" + dateTime.getHours();
 
     var mins = "0" + dateTime.getMinutes();
@@ -125,6 +133,7 @@ function formattedTime(dateTime){
 
     return hours.substr(-2) + ':' + mins.substr(-2);
 }
+
 
 function calculateSunriseSunset (sunriseTime,sunsetTime,currentTime){
     const percentage = (currentTime-sunriseTime)/(sunsetTime-sunriseTime) * 100;
@@ -135,6 +144,7 @@ function calculateSunriseSunset (sunriseTime,sunsetTime,currentTime){
 
 
 window.addEventListener('DOMContentLoaded', (e) => {
+
     //if true, get the current location when page loads
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition((loc) => {
@@ -167,26 +177,33 @@ window.addEventListener('DOMContentLoaded', (e) => {
 
         })
         })
+
+        
+
     }
 
 
     
+
 });
 
 
 
 function initMap(){
-    autocomplete = new  google.maps.places.Autocomplete(locationInput, 
+    autocomplete = new google.maps.places.Autocomplete(locationInput, 
     {
         componentRestrictions: {'country': ['us']},
+
         fields: [],
         types: ['locality']
+
     })
     
     autocomplete.addListener('place_changed', () => {
         const location = autocomplete.getPlace();
         lngLatSearch[0] = location.geometry.location.lng();
         lngLatSearch[1] = location.geometry.location.lat();
+
         //Save this location we get from search result to global variable
         locationArr[0] = location;
 
@@ -199,54 +216,32 @@ function initMap(){
         getForecast(lngLatSearch);
         getCityImage(locationArr);
 
-        searchedLocationBtn.textContent = locationArr[0].name;
+        placeImageUrl = locationArr[0].photos[0].getUrl()
         searchedLocationBtn.addEventListener('click', (e) => {
             e.preventDefault();
             cityImageText.textContent = locationArr[0].formatted_address;
             getWeather(lngLatSearch);
             getForecast(lngLatSearch);
-            getCityImage(locationArr);
+            updateImage(placeImageUrl);
         })
         
         
+
+
     })
+    
+}   
+
 
 }
 initMap();
 
 
-function getCityImage(locationArr){    
-    var map = new google.maps.Map(document.getElementById('mapdiv'), {
-               center: {lat: locationArr[0].geometry.location.lng(), lng: locationArr[0].geometry.location.lng()},
-               zoom: 20
-             });
-    
-   var request = {
-     placeId: locationArr[0].place_id
-   };
 
-   console.log(location);
-   
-   service = new google.maps.places.PlacesService(map);
-   service.getDetails(request, callback);
-   
-   function callback(place, status) {
-     if (status == google.maps.places.PlacesServiceStatus.OK) {
-       createPhoto(place);
-     }
-   }
-   
-   function createPhoto(place) {
-     var photos = place.photos;
-   
-     if (!photos) {
-       return;
-     }
-    
 
-    urlLink = photos[0].getUrl();
-    cityImageDiv.style.backgroundImage = `url('${urlLink}')`;
-   }
+
+
+function updateImage(placeImageUrl) {
+    placeImgDiv.style.backgroundImage=`url(${placeImageUrl})`;
 }
-
 

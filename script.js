@@ -209,15 +209,15 @@ function initMap(){
         locationArr[0] = location;
 
     })
-
+    
     searchBtn.addEventListener('click', (e) => {
         e.preventDefault();
         cityImageText.textContent = locationArr[0].formatted_address;
         getWeather(lngLatSearch);
         getForecast(lngLatSearch);
         updateImage(placeImageUrl);
-
-        placeImageUrl = locationArr[0].photos[0].getUrl()
+        searchedLocationBtn.textContent = locationArr[0].name;
+        placeImageUrl = locationArr[0].photos[0].getUrl();
         searchedLocationBtn.addEventListener('click', (e) => {
             e.preventDefault();
             cityImageText.textContent = locationArr[0].formatted_address;

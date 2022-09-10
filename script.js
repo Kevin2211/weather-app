@@ -135,14 +135,14 @@ function initMap(){
         locationImgText.textContent = location.name;
         getWeather(lngLatSearch);
         getForecast(lngLatSearch);
-        getNews(encodeURIComponent(location.name))
+        getNews()
     })
 
 }
 initMap();
 
-async function getNews(place) {
-    const location = encodeURIComponent(locationInput.value) 
+async function getNews() {
+    const place = autocomplete.getPlace().name
     const url = `https://newsapi.org/v2/everything?q=Houston&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`
 
     const promise = await fetch (`https://newsapi.org/v2/everything?q=${place}&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`)

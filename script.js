@@ -292,14 +292,16 @@ async function getNews(keyword) {
     // newsURL1.href = data.articles[0].url;
     const newsHTML =[]
     for (let i = 0; i < 4; i = i+1) {
-        eachElement = `<div class="card col-md-3" style="width: 18rem;">
+        eachElement = `
+        <div class="card col-12 col-md-6 col-lg-3" style="width: 18rem;">
         <img src="${data.articles[i].urlToImage}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${data.articles[i].title}</h5>
           <p class="card-text">${data.articles[i].description}</p>
           <a href="${data.articles[i].url}" class="btn btn-primary">Go to article</a>
         </div>
-     </div>`
+     </div>
+     `
      newsHTML.push(eachElement)   
     }
     newsCards.innerHTML = newsHTML.join('')

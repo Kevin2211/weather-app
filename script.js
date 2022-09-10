@@ -1,6 +1,6 @@
 
 // Navbar Control
-=======
+
 
 const locationInput = document.getElementById('location-input');
 const searchBtn = document.getElementById('search-btn');
@@ -24,7 +24,7 @@ const forecastDiv = document.getElementById('forecastDiv');
 //Sun card
 const sunMeterDiv = document.getElementById('sun-meter');
 //City image card
-const cityImageDiv = document.getElementById('city-image-div');
+const placeImgDiv = document.getElementById('city-image-div');
 const cityImageText = document.getElementById('location-image-text');
 
 
@@ -35,10 +35,11 @@ const houstonLonLat = [-95.358421, 29.749907];
 const apiKey = 'ee759a30a9b8bfdc78fd32c59d9d8abc';
 const lngLatSearch = [];
 
+
 let detected = false;
 const locationArr = [];
 var urlLink = '';
-
+var placeImageUrl = '';
 
 
 
@@ -157,7 +158,7 @@ window.addEventListener('DOMContentLoaded', (e) => {
                 e.preventDefault();
                 getWeather([loc.coords.longitude,loc.coords.latitude]);
                 getForecast([loc.coords.longitude,loc.coords.latitude]);
-                cityImageDiv.style.backgroundImage = `url('icons/defaultImage.jpeg')`;
+                placeImgDiv.style.backgroundImage = `url('icons/defaultImage.jpeg')`;
                 cityImageText.textContent = detectedLocationBtn.textContent;
             })
     //Use default location if geolocation is blocked
@@ -172,7 +173,7 @@ window.addEventListener('DOMContentLoaded', (e) => {
             e.preventDefault();
             getWeather([-95.358421,29.749907]);
             getForecast([-95.358421,29.749907]);
-            cityImageDiv.style.backgroundImage = `url('icons/defaultImage.jpeg')`;
+            placeImgDiv.style.backgroundImage = `url('icons/defaultImage.jpeg')`;
             cityImageText.textContent = detectedLocationBtn.textContent;
 
         })
@@ -214,7 +215,7 @@ function initMap(){
         cityImageText.textContent = locationArr[0].formatted_address;
         getWeather(lngLatSearch);
         getForecast(lngLatSearch);
-        getCityImage(locationArr);
+        updateImage(placeImageUrl);
 
         placeImageUrl = locationArr[0].photos[0].getUrl()
         searchedLocationBtn.addEventListener('click', (e) => {
@@ -224,20 +225,11 @@ function initMap(){
             getForecast(lngLatSearch);
             updateImage(placeImageUrl);
         })
-        
-        
-
-
     })
-    
+
 }   
 
-
-}
 initMap();
-
-
-
 
 
 

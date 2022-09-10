@@ -1,4 +1,3 @@
-
 const locationInput = document.getElementById('location-input');
 const searchBtn = document.getElementById('search-btn');
 const detectedLocationBtn = document.getElementById('detected-location');
@@ -13,13 +12,14 @@ const currentDate = document.getElementById('current-date');
 const sunrise = document.getElementById('sunrise');
 const sunset = document.getElementById('sunset');
 const forecastDiv = document.getElementById('forecastDiv');
+var placeImgDiv = document.getElementById('placeImgDiv');
 
 const week = ['Sun','Mon','Tue','Wed', 'Thu','Fri','Sat'];
 const monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
 const houstonLonLat = [-95.358421, 29.749907];
 const apiKey = 'ee759a30a9b8bfdc78fd32c59d9d8abc';
 const lngLatSearch = [];
-
+var placeImageUrl = "";
 
 
 
@@ -83,9 +83,9 @@ function kelvinToFahr(temp){
 
 function formattedTime(dateTime){
     var minutes = "0" + dateTime.getHours();
-
+    
     var seconds = "0" + dateTime.getMinutes();
-
+    
 
     return minutes.substr(-2) + ':' + seconds.substr(-2);
 }
@@ -93,6 +93,8 @@ function formattedTime(dateTime){
 
 
 window.addEventListener('DOMContentLoaded', (e) => {
+    placeImgDiv.style.backgroundImage="url('icons/houston.jpeg')"
+
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition((loc) => {
             lngLatSearch[0] = loc.coords.longitude;
@@ -105,17 +107,18 @@ window.addEventListener('DOMContentLoaded', (e) => {
         lngLatSearch[1] = 29.749907;
         getWeather(lngLatSearch);
         getForecast(lngLatSearch);
-
+        
     }
     
+    initMap()
 });
 
 
 function initMap(){
-    autocomplete = new  google.maps.places.Autocomplete(locationInput, 
+    autocomplete = new google.maps.places.Autocomplete(locationInput, 
     {
         componentRestrictions: {'country': ['us']},
-        fields: [],
+        fields: [''],
         types: ['geocode']
     })
 
@@ -124,54 +127,20 @@ function initMap(){
         lngLatSearch[0] = location.geometry.location.lng();
         lngLatSearch[1] = location.geometry.location.lat();
         console.log(location)
-        
-        // location = photoRequest;
+        placeImageUrl = location.photos[0].getUrl()
         
         searchBtn.addEventListener('click', (e) => {
             e.preventDefault();
             locationImgText.textContent = location.name;
             getWeather(lngLatSearch);
             getForecast(lngLatSearch);
-            // console.dir(locationInput)
-            // getImg(locationInput.value);
+            updateImage(placeImageUrl);
         })
         
     })
     
 }   
-initMap()
-        
-const photoRequest = () => {
-    var request = {
-    place_id: photos[0].place_id
-    }
 
-    service = new google.maps.places.PlacesService(location);
-    service.getDetails(request, callback);
-
-    function callback(place, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-        getPhoto(place);
-        }
-        }
-
-        function getPhoto(place) {
-            var photos = place.photos;
-      
-            if (!photos) {
-            return;
-            }
-            var placePhoto = document.createElement("img")
-       
-            placePhoto.src = photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100});
-            const placePhotoDiv = document.getElementById('placePhotoDiv');
-            placePhotoDiv.appendChild(placePhoto);
-        
-            
-    }
-    
-}           
-
-// place_id: photos[0].place_id
-
-//fields: ['geometry','name','address_components']
+function updateImage(placeImageUrl) {
+    placeImgDiv.style.backgroundImage=`url(${placeImageUrl})`;
+}

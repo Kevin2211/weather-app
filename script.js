@@ -37,22 +37,6 @@ const apiKey = 'ee759a30a9b8bfdc78fd32c59d9d8abc';
 const lngLatSearch = [];
 
 //news variables
-const newsImage1 = document.getElementById("newsImage1");
-const newsHeadline1 = document.getElementById("newsHeadline1");
-const newsDescription1 = document.getElementById("newsDescription1")
-const newsURL1 = document.getElementById("newsURL1")
-const newsImage2 = document.getElementById("newsImage2");
-const newsHeadline2 = document.getElementById("newsHeadline2");
-const newsDescription2 = document.getElementById("newsDescription2")
-const newsURL2 = document.getElementById("newsURL2")
-const newsImage3 = document.getElementById("newsImage3");
-const newsHeadline3 = document.getElementById("newsHeadline3");
-const newsDescription3 = document.getElementById("newsDescription3")
-const newsURL3 = document.getElementById("newsURL3")
-const newsImage4 = document.getElementById("newsImage4");
-const newsHeadline4 = document.getElementById("newsHeadline4");
-const newsDescription4 = document.getElementById("newsDescription4")
-const newsURL4 = document.getElementById("newsURL4")
 const newsCards = document.getElementById("news-cards")
 
 
@@ -231,7 +215,7 @@ function initMap(){
         //Save this location we get from search result to global variable
         locationArr[0] = location;
         placeImageUrl = location.photos[0].getUrl();
-        getNews(location.name)
+        
     })
     
     searchBtn.addEventListener('click', (e) => {
@@ -240,6 +224,7 @@ function initMap(){
         getWeather(lngLatSearch);
         getForecast(lngLatSearch);
         updateImage(placeImageUrl);
+        getNews(locationArr[0].name);
         searchedLocationBtn.textContent = locationArr[0].formatted_address;
         
         searchedLocationBtn.addEventListener('click', (e) => {
@@ -262,26 +247,7 @@ function updateImage(placeImageUrl) {
 }
 
 
-// async function getNews() {
-//     const place = autocomplete.getPlace().name
-//     const url = `https://newsapi.org/v2/everything?q=Houston&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`
-
-//     const promise = await fetch (`https://newsapi.org/v2/everything?q=Apple&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`)
-//     const data = await promise.json()
-//     console.log(data)
-
-//     newsHeadline1.innerHTML = data.articles[0].title;
-//     newsDescription1.innerHTML = data.articles[0].description;
-//     newsImage1.src = data.articles[0].urlToImage;
-//     newsURL1.href = data.articles[0].url;
-
-    
-
-
-   
-
-// }
-
+  
 async function getNews(keyword) {
     const promise = await fetch(
       `https://newsapi.org/v2/everything?q=${keyword}&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`
@@ -307,6 +273,7 @@ async function getNews(keyword) {
      `
      newsHTML.push(eachElement)   
     }
+    document.getElementById('news-location').textContent = `Top News in ${keyword}: `
     newsCards.innerHTML = newsHTML.join('')
 
   }

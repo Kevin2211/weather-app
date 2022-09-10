@@ -52,6 +52,7 @@ const newsImage4 = document.getElementById("newsImage4");
 const newsHeadline4 = document.getElementById("newsHeadline4");
 const newsDescription4 = document.getElementById("newsDescription4")
 const newsURL4 = document.getElementById("newsURL4")
+const newsCards = document.getElementById("news-cards")
 
 
 let detected = true;
@@ -227,6 +228,7 @@ function initMap(){
         //Save this location we get from search result to global variable
         locationArr[0] = location;
         placeImageUrl = location.photos[0].getUrl();
+        getNews(location.name)
     })
     
     searchBtn.addEventListener('click', (e) => {
@@ -257,24 +259,51 @@ function updateImage(placeImageUrl) {
 }
 
 
-async function getNews() {
-    const place = autocomplete.getPlace().name
-    const url = `https://newsapi.org/v2/everything?q=Houston&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`
+// async function getNews() {
+//     const place = autocomplete.getPlace().name
+//     const url = `https://newsapi.org/v2/everything?q=Houston&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`
 
-    const promise = await fetch (`https://newsapi.org/v2/everything?q=Apple&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`)
-    const data = await promise.json()
-    console.log(data)
+//     const promise = await fetch (`https://newsapi.org/v2/everything?q=Apple&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`)
+//     const data = await promise.json()
+//     console.log(data)
 
-    newsHeadline1.innerHTML = data.articles[0].title;
-    newsDescription1.innerHTML = data.articles[0].description;
-    newsImage1.src = data.articles[0].urlToImage;
-    newsURL1.href = data.articles[0].url;
+//     newsHeadline1.innerHTML = data.articles[0].title;
+//     newsDescription1.innerHTML = data.articles[0].description;
+//     newsImage1.src = data.articles[0].urlToImage;
+//     newsURL1.href = data.articles[0].url;
 
     
 
 
    
 
-}
+// }
 
-getNews()
+async function getNews(keyword) {
+    const promise = await fetch(
+      `https://newsapi.org/v2/everything?q=${keyword}&from=2022-09-08&sortBy=popularity&apiKey=0c4018ad465a4d1591f11610c371c590`
+    );
+    const data = await promise.json();
+    console.log(data);
+  
+    // newsHeadline1.innerHTML = data.articles[0].title;
+    // newsDescription1.innerHTML = data.articles[0].description;
+    // newsImage1.src = data.articles[0].urlToImage;
+    // newsURL1.href = data.articles[0].url;
+    const newsHTML =[]
+    for (let i = 0; i < 4; i = i+1) {
+        eachElement = `<div class="card col-md-3" style="width: 18rem;">
+        <img src="${data.articles[i].urlToImage}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">${data.articles[i].title}</h5>
+          <p class="card-text">${data.articles[i].description}</p>
+          <a href="${data.articles[i].url}" class="btn btn-primary">Go to article</a>
+        </div>
+     </div>`
+     newsHTML.push(eachElement)   
+    }
+    newsCards.innerHTML = newsHTML.join('')
+
+  }
+
+

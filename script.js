@@ -36,7 +36,7 @@ const apiKey = 'ee759a30a9b8bfdc78fd32c59d9d8abc';
 const lngLatSearch = [];
 
 
-let detected = false;
+let detected = true;
 const locationArr = [];
 var urlLink = '';
 var placeImageUrl = '';
@@ -74,11 +74,11 @@ async function getWeather(longLat) {
         }
 
 
-        if(navigator.geolocation && detected === false){
+        if(detected === true){
             console.log(weatherData);
             detectedLocationBtn.textContent = weatherData.name + ' (detected)';
             cityImageText.textContent = detectedLocationBtn.textContent;
-            detected =  true;
+            detected =  false;
         } 
 
         
@@ -164,6 +164,7 @@ window.addEventListener('DOMContentLoaded', (e) => {
             })
     //Use default location if geolocation is blocked
         }, (error) => {
+        detected = false;
         document.getElementById('preloader').style.display ='none';
         getWeather([-95.358421,29.749907]);
         getForecast([-95.358421,29.749907]);

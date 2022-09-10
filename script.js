@@ -75,6 +75,7 @@ async function getWeather(longLat) {
 
 
         if(navigator.geolocation && detected === false){
+            console.log(weatherData);
             detectedLocationBtn.textContent = weatherData.name + ' (detected)';
             cityImageText.textContent = detectedLocationBtn.textContent;
             detected =  true;
@@ -168,7 +169,6 @@ window.addEventListener('DOMContentLoaded', (e) => {
         getForecast([-95.358421,29.749907]);
         detectedLocationBtn.textContent = 'Houston (default)';
         cityImageText.textContent = 'Houston, TX (default)';
-        console.log(error);
         detectedLocationBtn.addEventListener('click', (e) => {
             e.preventDefault();
             getWeather([-95.358421,29.749907]);
@@ -207,7 +207,7 @@ function initMap(){
 
         //Save this location we get from search result to global variable
         locationArr[0] = location;
-
+        placeImageUrl = location.photos[0].getUrl();
     })
     
     searchBtn.addEventListener('click', (e) => {
@@ -216,8 +216,8 @@ function initMap(){
         getWeather(lngLatSearch);
         getForecast(lngLatSearch);
         updateImage(placeImageUrl);
-        searchedLocationBtn.textContent = locationArr[0].name;
-        placeImageUrl = locationArr[0].photos[0].getUrl();
+        searchedLocationBtn.textContent = locationArr[0].formatted_address;
+        
         searchedLocationBtn.addEventListener('click', (e) => {
             e.preventDefault();
             cityImageText.textContent = locationArr[0].formatted_address;

@@ -1,5 +1,5 @@
 ## Front End Project 
-Tools: Google map api, OpenWeather API, HTML, Bootstrap, CSS and Javscript
+Tools and technologies used: Google map api, OpenWeather API, HTML, Bootstrap, CSS and Javscript
 
 ![Screen Shot 2022-10-29 at 10 53 17 AM](https://user-images.githubusercontent.com/36496209/198841080-f3b500bc-6d85-46f3-bd30-1bf8bec8a51a.png)
 <img width="612" alt="Screen Shot 2022-10-29 at 2 21 33 PM" src="https://user-images.githubusercontent.com/36496209/198849186-75c278fb-10f8-440e-8fee-a41fd255e1d1.png">

@@ -3,6 +3,8 @@
 }
 .weather-div{
     background-color: #0f183c;
+    height: 100%;
+    padding-bottom: 5%;
 }
 #current-weather-div{
     background: linear-gradient(.717turn,#fff 1.16%,rgba(209, 205, 236, 0) 192.15%)!important;

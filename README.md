@@ -1,7 +1,7 @@
 ## Front End Project 
 Tools and technologies used: Google map api, OpenWeather API, HTML, Bootstrap, CSS and Javscript.   
 
-Live preview: https://kevin2211.github.io/weather-app/
+Live preview: https://kevin2211.github.io/weather-app/</br>
 Desktop view: </br>
 ![Screen Shot 2022-10-29 at 10 53 17 AM](https://user-images.githubusercontent.com/36496209/198841080-f3b500bc-6d85-46f3-bd30-1bf8bec8a51a.png)</br>
 Mobile view: </br>

@@ -62,7 +62,7 @@ async function getWeather(longLat) {
         currentDate.textContent = `${week[currentDateTime.getDay()]} ${getMonthDate(weatherData.dt)} ${currentDateTime.getFullYear()}`;
         currentHumidity.textContent = weatherData.main.humidity + "%";
         currentWeatherDes.textContent = weatherData.weather[0].description.toUpperCase();
-        currentWeatherImg.src = `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
+        currentWeatherImg.src = `icons/indicator-icons/${weatherData.weather[0].icon}.png`;
         currentVisibilityData.textContent = `${weatherData.visibility}` + "MSL";
 
         //get unix time format to dateTime format for sunset and sunrise
@@ -105,7 +105,7 @@ async function getForecast(longLat){
     //loop through the array of objects and make a new div for each object we get from fetched data
     for (let i = 0; i < forecastData.length; i++) {
         const eachElement = `<div class="d-flex flex-column me-5">
-        <img class="" src="http://openweathermap.org/img/wn/${forecastData[i].weather[0].icon}@2x.png" alt="" width="40" height="40">
+        <img class="" src="icons/indicator-icons/${forecastData[i].weather[0].icon}.png" alt="" width="40" height="40">
         <p style="color: #000d63;">${forecastData[i].main.temp.toString().substr(0,2)}°</p>
         <p>${forecastData[i].dt_txt.substr(10,6)}</p>
         <h5>${getMonthDate(forecastData[i].dt)}</h5>
@@ -224,8 +224,8 @@ function initMap(){
         getWeather(lngLatSearch);
         getForecast(lngLatSearch);
         updateImage(placeImageUrl);
-        getNews(locationArr[0].name);
         searchedLocationBtn.textContent = locationArr[0].formatted_address;
+        console.log(searchedLocationBtn.textContent)
         
         searchedLocationBtn.addEventListener('click', (e) => {
             e.preventDefault();
